@@ -1,0 +1,18 @@
+name: Docker CI Pipeline
+run-name: ${{ github.actor }} is running out Docker CI Pipeline 🚀
+on: [push]
+jobs:
+  hello-world-job:
+    runs-on: ubuntu-latest
+    steps:
+       - name: Clone the code
+         uses: actions/checkout@v6
+       - name: Build the image
+         run: docker build -t ${{ vars.DOCKERHUB_USERNAME }}/helloworld-demo-python:v1 .
+       - name: Login to Docker Hub
+         uses: docker/login-action@v3
+         with:
+           username: ${{ vars.DOCKERHUB_USERNAME }}
+           password: ${{ secrets.DOCKERHUB_TOKEN }}
+       - name: Push the image
+         run: docker push ${{ vars.DOCKERHUB_USERNAME }}/helloworld-demo-python:v1
