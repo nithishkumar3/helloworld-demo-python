@@ -16,3 +16,7 @@ jobs:
            password: ${{ secrets.DOCKERHUB_TOKEN }}
        - name: Push the image
          run: docker push ${{ vars.DOCKERHUB_USERNAME }}/helloworld-demo-python:v1
+        - name: Run the container
+         run: docker run --name helloworld-demo-python -itd -p 8080:8080 ${{ vars.DOCKERHUB_USERNAME }}/helloworld-demo-python:v1
+       - name: View the container
+         run: docker ps
